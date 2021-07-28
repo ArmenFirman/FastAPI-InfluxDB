@@ -1,14 +1,17 @@
 from fastapi import FastAPI
 import uvicorn
+import yaml
+from yaml.loader import SafeLoader
 from Model.Model import WritingData, ReadingData
 from Database.Database import InfluxDataBase
-from pydantic import BaseModel
-from typing import List
 
-server_URL="http://localhost:8086"
-token="ysCdkFn7aP_FpPyxRA9RvMZ5Gkb7bFBTbj-8h5BFJqwcI4Atg5D-i4Ws8ve8H8jLXSzeMiQN9SArj58IC1EYiQ=="
-org="6b3bad4e03c1ae1d"
-bucket="d51dbef4287e09bf"
+
+
+with open("config.yaml", "r") as ymlfile:
+    cfg = yaml.load(ymlfile,Loader=SafeLoader)
+server_URL=cfg["InfluxDB"]["server_URL"]
+token=cfg["InfluxDB"]["token"]
+org=cfg["InfluxDB"]["org"]
 
 Influx = InfluxDataBase(server_URL,token,org)
 app = FastAPI()
