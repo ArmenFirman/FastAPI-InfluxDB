@@ -1,2 +1,2 @@
 # FastAPI-InfluxDB
- Data API with InfluxDB
+ Data API with InfluxDB and FastAPI.
